@@ -171,36 +171,36 @@ public class SimpleDFS  {
     }
 
     void levelDown() {
-	store.removeLevel(depth);
-	store.setLevel(--depth);
+		store.removeLevel(depth);
+		store.setLevel(--depth);
     }
 
     void levelUp() {
-	store.setLevel(++depth);
+		store.setLevel(++depth);
     }
 
     void restoreLevel() {
-	store.removeLevel(depth);
-	store.setLevel(store.level);
+		store.removeLevel(depth);
+		store.setLevel(store.level);
     }
 
     public void reportSolution() {
-	System.out.println("Nodes visited: " + N);
+		System.out.println("Nodes visited: " + N);
 
-	if (costVariable != null)
-	    System.out.println ("Cost is " + costVariable);
+		if (costVariable != null)
+			System.out.println ("Cost is " + costVariable);
 
-	for (int i = 0; i < variablesToReport.length; i++) 
-	    System.out.print (variablesToReport[i] + " ");
-	System.out.println ("\n---------------");
+		for (int i = 0; i < variablesToReport.length; i++) 
+			System.out.print (variablesToReport[i] + " ");
+		System.out.println ("\n---------------");
     }
 
     public void setVariablesToReport(IntVar[] v) {
-	variablesToReport = v;
+		variablesToReport = v;
     }
 
     public void setCostVariable(IntVar v) {
-	costVariable = v;
+		costVariable = v;
     }
 
     public class ChoicePoint {

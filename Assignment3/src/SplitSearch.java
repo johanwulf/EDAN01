@@ -135,11 +135,13 @@ public class SplitSearch {
         IntVar[] searchVariables;
         int value;
         int strategy;
+        int index;
 
         public ChoicePoint (IntVar[] v) {
             this.var = selectVariable(v);
             this.value = selectValue(var);
             this.strategy = LOWER_HALF;
+            this.index = 0;
         }
     
         public IntVar[] getSearchVariables() {
@@ -150,23 +152,22 @@ public class SplitSearch {
          * example variable selection; input order
          */ 
         IntVar selectVariable(IntVar[] v) {
-            if (strategy == LOWER_HALF) {
-
-            } else if (strategy == UPPER_HALF) {
- 
-            }
-                
             if (v.length != 0) {
-    
-                searchVariables = new IntVar[v.length-1];
-                for (int i = 0; i < v.length-1; i++) {
-                    searchVariables[i] = v[i+1]; 
+                IntVar value = v[0];
+                
+                if (value.min() == value.max()) {
+                    searchVariables = new IntVar[v.length-1];
+                    for (int i = 0; i < v.length-1; i++) {
+                        searchVariables[i] = v[i+1]; 
+                    }
+                    return searchVariables[0];
+                } else {
+                    searchVariables = v;
                 }
-        
-                return v[0];
-        
+
+                return value;
             } else {
-                System.err.println("Zero length list of variables for labeling");
+                System.err.println("Zero length list of variables for labeling");                 
                 return new IntVar(store);
             }
         }
@@ -175,16 +176,16 @@ public class SplitSearch {
             int c = 0;
             if (strategy == LOWER_HALF) {
                 c = (v.min() + v.max()) / 2;
-                if (v.min() == v.max()) {
-
-                }
             } else if (strategy == UPPER_HALF) {
-                c = (v.min() + v.max()) / 2;
-                if (v.min() == v.max()) {
-                    
+                if (v.min() + v.max() % 2 == 0) {
+                    c = (v.min() + v.max()) / 2;
+                } else {
+                    c = (v.min() + v.max() + 1) / 2;
                 }
+            } else {
+                c = v.min();
             }
-            return 0;
+            return c;
         }
 
         public PrimitiveConstraint getConstraint() {

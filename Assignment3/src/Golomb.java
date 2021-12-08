@@ -169,8 +169,8 @@ public class Golomb {
 
 	IntVar cost = numbers[numbers.length - 1];
 
-	//SplitSearch search = new SplitSearch(store);
-	SimpleDFS search = new SimpleDFS(store);
+	SplitSearch search = new SplitSearch(store);
+	//SimpleDFS search = new SimpleDFS(store);
 	search.setVariablesToReport(numbers);
 	search.setCostVariable(cost);
 
@@ -182,6 +182,4 @@ public class Golomb {
 	System.out.println (result);
 
     }
-	
-	
 }
