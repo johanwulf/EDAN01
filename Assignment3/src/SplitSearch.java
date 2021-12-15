@@ -160,12 +160,11 @@ public class SplitSearch {
                     for (int i = 0; i < v.length-1; i++) {
                         searchVariables[i] = v[i+1]; 
                     }
-                    return searchVariables[0];
                 } else {
                     searchVariables = v;
                 }
 
-                return value;
+                return v[0];
             } else {
                 System.err.println("Zero length list of variables for labeling");                 
                 return new IntVar(store);
@@ -177,7 +176,7 @@ public class SplitSearch {
             if (strategy == LOWER_HALF) {
                 c = (v.min() + v.max()) / 2;
             } else if (strategy == UPPER_HALF) {
-                if (v.min() + v.max() % 2 == 0) {
+                if ((v.min() + v.max()) % 2 == 0) {
                     c = (v.min() + v.max()) / 2;
                 } else {
                     c = (v.min() + v.max() + 1) / 2;
